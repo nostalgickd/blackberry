@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+*{
+box-sizing: border-box;
+padding:0;
+margin:0;
+}
+
+body{
+background: #ffd5bf;
+}
+
+#lyrics{
+display:flex;
+flex-direction: column;
+width: 80%;
+height:auto;
+padding: 5px;
+justify-content: center;
+align-items: center;
+text-align: center;
+font: 12px 'Delius', cursive;
+border: 1em solid;
+border-image: url("/lyrics/resources/border.png") 150;
+margin: 0 10% 10px 10%;
+}	
+
+.break{
+color:blue;
+}
+
+.en{
+color: gray;
+animation: left 4s ease-in-out;
+}
+
+.hi,.du{
+color: black;
+animation: right 4s ease-in-out;
+}
+
+
+@keyframes left{
+0%{color:red;transform: translate(20%,0)}
+50%{color:red;transform: translate(-20%,0)}
+100%{color:gray;transform: translate(0,0)}}
+
+@keyframes right{
+0%{color:blue;transform: translate(-20%,0)}
+50%{color:blue;transform: translate(20%,0)}
+100%{color:black;transform: translate(0,0)}}
+
+#info{
+width:80%;
+padding:5%;
+font: 20px Arial;
+text-align:center;
+margin-left: 10%;
+color: green;
+}
