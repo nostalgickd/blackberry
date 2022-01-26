@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="black"/>
+<meta name="msapplication-TileColor" content="#da532c"/>
+<meta name="msapplication-navbutton-color" content="black"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>About</title>
+
+<style>				
+*{
+box-sizing: border-box;
+margin:0; padding:0; 
+outline: none;
+}	
+
+body{
+background: rgb(251,244,234) url("");
+min-width: 100vw; 
+max-width: 100vw; 
+min-height: 100vh;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+}
+
+#container{
+height: auto;
+border: 0px solid red;
+margin-top: 20px;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+}
+
+@media (orientation:portrait){
+#container{width: 95%;}
+body{background-size: 35%;}		
+}	
+
+@media (orientation:landscape){
+#container{width: 75%;}
+body{background-size: 50%;}			
+}	
+
+</style>
+</head>
+<body data-nosnippet>
+<div id="container">
+
+<select id="stations" multiple>
+<optgroup label="Select stations to hide">
+</optgroup>
+</select>
+<button id="save">Save</button>
+<span></span>
+</div>
+<script src="/bollywood.js"></script>
+<script>				
+let create= (x)=> document.createElement(x),
+select= (x,y=document)=> y.querySelector(x),
+selectAll= (x,y=document)=> y.querySelectorAll(x);
+
+let dropdown= select("#stations");
+let save= select("#save");
+let stations= Object.values(list[0]);
+
+stations.forEach(i=>{
+let option= create("option");
+option.innerHTML= i;
+select("optgroup", dropdown).append(option);
+});
+
+let blocklist= JSON.parse(localStorage.blockstations);
+
+blocklist.forEach(i=>{
+let a= selectAll("option");
+a[i].selected= true;
+});
+
+
+document.body.onclick=()=>{
+save.innerHTML= "Save";
+}
+
+save.onclick= function(){
+let blockstations= [...dropdown.selectedOptions].map(i=>{
+return i.index;
+});
+
+localStorage.blockstations= JSON.stringify(blockstations);
+
+this.innerHTML= "Saved";
+
+let blocklist= JSON.parse(localStorage.blockstations);
+select("span").innerHTML= blocklist.length + " stations hidden successfully. Reload the page for the changes to take effect";
+};
+
+
+
+/*
+
+//Single select element
+el.selectedIndex;
+
+function selectedOptions(el){
+return [...el.selectedOptions].map(i=> i.index);
+}
+
+OR
+
+
+function selectedOptions(el){
+let a= selectAll("option:checked",el);
+return [...a].map(i=>i.index);
+}
+
+
+*/
+
+
+</script>	
+</body>
+</html>
+
+
+

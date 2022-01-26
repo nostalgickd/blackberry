@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="black"/>
+<meta name="msapplication-TileColor" content="#da532c"/>
+<meta name="msapplication-navbutton-color" content="black"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="description" content="Some BlackBerry web tools!"/>
+<meta name="keywords" content="Blackberry, Javascript, html, css, kawiesh, bookmarklet, fetch api"/>
+<meta name="author" content="Kawiesh"/>
+<meta property="og:title" content="Remote bookmarklets by Kawiesh"/>
+<meta property="og:type" content="Some BlackBerry web tools!"/>
+<meta property="og:url" content=""/>
+<meta property="og:image" content="https://kawiesh.tk/resources/kawiesh.jpg"/>
+<title>Tools optimized for Blackberry Browser</title>
+
+<style>				
+*{
+box-sizing: border-box;
+margin:0; padding:0; 
+outline: none;
+}	
+
+body{
+background: rgb(251,244,234) url("");
+background-size: 10%;
+min-width: 100vw; min-height: 100vh;
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content:center;
+}
+
+#container{
+border: 0px solid red;
+margin-top: 20px;
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content:center;
+}
+
+
+
+a.link{
+display: block;
+padding:5px 5px;
+text-align: center;
+text-decoration: none;
+font-variant: small-caps;
+position: relative;
+border: 1px solid black;
+font-weight: bold;
+}
+
+
+table#links{
+max-width: 100%;
+table-layout: fixed;
+border-spacing: 5px 2px;
+}
+
+
+td{
+overflow: hidden;
+height: calc(1em + 5px);
+background: rgb(255,255,255,0.7);
+}
+
+
+
+@media (orientation:portrait){
+#container{width: 95%;}
+}	
+
+@media (orientation:landscape){
+#container{width: 75%;}
+}	
+
+
+
+</style>
+</head>
+<body data-nosnippet= "true">
+<div id="container">
+<p>Pages optimized 
+for BlackBerry Browser (< OS 7)</p>
+<br>
+<table id="links">
+<tr><td><span>pages:</span></td></tr>
+<tr><td><a class="link" href="radio">radio</a></td></tr>
+<tr><td><a class="link" href="oldradio">old radio</a></td></tr>
+<tr><td><a class="link" href="html-editor">html editor</a></td></tr>
+<tr><td><a class="link" href="bookmarklet-maker">bookmarklet maker</a></td></tr>
+</table>
+</div>
+<script>				
+var api= "https://api.github.com/repos/nostalgickd/",
+repo= "nostalgickd.github.io/contents/",
+folder= "blackberry/?v=" + Date.now();
+var url= api + repo + folder;
+
+
+</script>	
+</body>
+</html>
+

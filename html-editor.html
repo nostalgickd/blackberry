@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>HTML Editor!</title>
+<style>
+
+*{box-sizing: border-box;}
+body{
+width:100%; height: 100%;
+}
+
+
+textarea{
+font-size: 10px;
+padding: 2px;
+border: 1px solid black;
+}
+
+textarea,div{
+display: block;
+height: 200px;
+width: 90%;
+margin: 0 4% 10px 4%;
+
+}
+
+
+</style>
+</head>
+<body>
+<textarea autocorrect="off" autocapitalize="none" autocomplete="off"></textarea>
+<div></div>
+<script>
+var a= document.querySelector("textarea");
+var b= document.querySelector("div");
+
+a.value= localStorage.html || "<span>hi</span>";
+
+a.oninput= function(){
+b.innerHTML= a.value;
+};
+
+
+var obu = false;
+window.onunload = window.onbeforeunload= function(){
+if(!obu){
+obu= true;
+localStorage.removeItem("html");
+localStorage.setItem("html",a.value);
+}
+};
+
+
+</script>			
+</body>
+</html>
