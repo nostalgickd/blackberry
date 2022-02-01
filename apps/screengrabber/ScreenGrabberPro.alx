@@ -1,0 +1,28 @@
+<loader version="1.0">
+	<application id="ScreenGrabberPro">
+		<name >
+			Screen Grabber Pro
+		</name>
+		<description >
+			APPBB.blogspot.com - JAD file created by vnbbUtils. - ALX file created by vnbbUtils.
+		</description>
+		<version >
+			2.400
+		</version>
+		<vendor >
+			The Jared Company
+		</vendor>
+		<copyright >
+			vnbb.
+		</copyright>
+		<fileset Java="1.38">
+			<files >
+				screengrabber.cod
+				screengrabber_bbm_common.cod
+				screengrabber_bbm_dependant.cod
+				screengrabber-1.cod
+				screengrabber-2.cod
+			</files>
+		</fileset>
+	</application>
+</loader>
