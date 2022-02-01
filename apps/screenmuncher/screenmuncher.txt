@@ -1,1 +1,0 @@
-App to make screenshot on BB OS <= 7.xxx
