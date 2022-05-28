@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio - BlackBerry</title>
+<style>
+*{
+box-sizing: border-box;
+}
+
+body{
+background: #57BC79;
+position: relative;
+width:99vw; height:100%;
+padding: 10px;
+margin: 0;
+overflow: hidden auto;
+}
+
+div.station{
+display: block;
+margin-bottom: 10px;
+}
+
+button{
+height: 25px;
+width: 40px;								
+}
+
+div.station>span{
+display: inline-block;
+margin-left: 50px;
+text-align: center;
+}
+
+
+
+select{width:190px; height: 25px;}
+audio{width: 150px; height: 30px;}
+
+.controls{
+padding: 2px;
+border: 1px solid;
+width: 100px;
+height: 10px;
+font-weight: bold;
+font-variant: small-caps;
+background: white;
+cursor: pointer;
+}
+
+p{
+width: 250px;
+}
+
+img{
+width: 100%;
+}
+
+</style>
+</head>
+<body>
+<audio></audio>
+
+<div class="bollywood station">
+<span>Bollywood</span><br>
+<button class="prev">Prev</button>
+<select class="bollywood" required>
+<option value="" disabled selected hidden>Choose a station...</option>
+<optgroup label= "----Bollywood stations----" class="bollywood">
+</optgroup>
+</select>
+<button class="next">Next</button>
+</div>
+
+<div class="sarnamie station">
+<span>Sarnamie</span><br>
+<button class="prev">Prev</button>
+<select class="sarnamie" required>
+<option value="" disabled selected hidden>Choose a station...</option>
+<optgroup label= "----Sarnamie stations----" class="sarnamie">
+</optgroup>
+</select>
+<button class="next">Next</button>
+</div>
+
+<div class="other station">
+<span>Suriname (other)</span><br>
+<button class="prev">Prev</button>
+<select class="other" required>
+<option value="" disabled selected hidden>Choose a station...</option>
+<optgroup label= "----General----" class="general"></optgroup>
+<optgroup label= "----Sranang----" class="sranang"></optgroup>
+<optgroup label= "----Javanese----" class="javanese"></optgroup>
+<optgroup label= "----Christian----" class="christian"></optgroup>
+<optgroup label= "----Other----" class="misc"></optgroup>
+</select>
+<button class="next">Next</button>
+</div>
+
+<span>Listening to: &nbsp;
+<b><span class="cs">-</span></b>&nbsp;
+</span>
+
+<span class="controls">-</span><br>
+<span>Listening for: <span class="time">-</span></span>
+<br>
+<p>
+<b><u>How to use:</u></b><br>
+To play a station, select it from the dropdown list.
+If the stream is accessable, the audio will start playing.
+Please wait for up to 20 seconds!<br>
+Use next and prev buttons to navigate through station list!<br>
+Tested on BlackBerry Curve 9320, running OS 7.xx [Native browser]
+<p>
+<br>
+<span>Screenshot:</span><br>
+<img src="/resources/screenshot.png"/>
+
+<script>
+
+var bollywood= {
+"https://drive.uber.radio/uber/bollywoodalkayagnik/icecast.audio" : "Alka Yagnik",
+"http://funasia.streamguys1.com/live9":"Big Melodies",
+"http://stream.zeno.fm/6rth3ywheg8uv":"BollyHits",
+"http://sc-bb.1.fm:8017":"Bombay Beats",
+"http://stream.zeno.fm/vmp0tkewzv8uv":"Caprice",
+"http://stream.zeno.fm/4gfevnscvp8uv" : "DesiZone 90s",
+"http://stream.zeno.fm/uspcm0rcvp8uv" : "DesiZone 2000s",
+"http://a11.streamgb.com/proxy/radioxl?mp=/stream":"Diverse FM",
+"http://eu47-sonic.instainternet.com/8068/stream":"Himal Filmy",
+"http://stream.zeno.fm/8e9q38tg7zquv" : "Hindi Music",
+"http://stream.zeno.fm/y0ce4dbtfa0uv" : "Indias Movies",
+"http://www.indifun.net:7000/;":"Indifun",
+"https://c5.radioboss.fm:18125/stream":"Manpasand",
+"http://stream.zeno.fm/eyxg23ky4x8uv" : "Marudhara",
+"http://peridot.streamguys.com:7150/Mirchi":"Mirchi FM",
+"http://stream.zeno.fm/8wk1s0pt008uv" : "NP 24",
+"http://stream.zeno.fm/yg1qhsbaqv5tv":"Namkin",
+"http://stream.zeno.fm/dhytbz6zfchvv":"Nitnut",
+"http://stream.zeno.fm/d22wrdbst5quv.mp3":"Radio Wow",
+"http://node-22.zeno.fm/9msu0vbxezzuv":"RHI - Covers",
+"http://stream.zeno.fm/4zg81bp7a5zuv" : "SB FM Parepare",
+"http://stream.zeno.fm/a69txeenvzzuv":"SRK Online",
+"http://stream.zeno.fm/2vhb00mhky8uv":"Singham",
+"http://stream.zeno.fm/cngd2qk67reuv":"Taal",
+"https://drive.uber.radio/uber/bollywooduditnarayan/icecast.audio" : "Udit Narayan",
+"https://eu1.fastcast4u.com/proxy/vvradio?mp=/;":"VV Radio",
+"https://drive.uber.radio/uber/bollywoodvishalandshekhar/icecast.audio":"Vishal & Shekhar",
+"https://securestreams8.autopo.st:3003/1":"90s Once Again",
+
+
+//"https://prclive1.listenon.in/":"⚠️Radio City [Talk]",
+//"https://astro4.rastream.com/india?type=mp3":"⚠️India Beat",
+//"https://tunein-icecast.mediaworks.nz/humm_128kbps":"⚠️Humm FM",
+//"https://stream.bongonet.net/proxy/rhi?mp=/stream":"⚠️RHI - Covers",
+};
+
+
+var sarnamie= {
+//"http://stream.akaashfm.com:8000/live" : "Akaash FM",
+"https://amorfm_192.streampartner.nl/stream" : "Amor",
+"http://stream.zeno.fm/xssh6qrf1wzuv" : "Assalaam",
+"https://stream.zeno.fm/bu26ykfcxnhvv" : "AVS Classic",
+"http://stream.zeno.fm/p218h6ccxnhvv" : "AVS Radio",
+"http://stream.zeno.fm/putkar0p9k0uv" : "Bollywood Sur.",
+"http://sgm.kloud.xyz:8120/radio.mp3" : "Ek Sitara",
+"https://hidradio.live-streams.nl/live?type=.mp3/;stream.mp3" : "HiD Radio",
+"https://stream.hostinggold.eu:1185/stream" : "Hulchul",
+"http://stream.zeno.fm/nqm3a44vzv8uv" : "Ishara",
+"http://stream.zeno.fm/ctmsytc6em0uv" : "Joyce The Voice",
+"http://mscp3.live-streams.nl:8050/stream" : "Pehchaan",
+"http://stream.zeno.fm/6etys88fup8uv" : "Rasonic",
+"http://audio-edge-es6pf.mia.g.radiomast.io/d7e8093b-6a7e-4442-a096-37f259cb7092" : "Rapar",
+"http://stream2.iqhosted.nl:8000/stream/1/" : "Sangam",
+"http://sgm.kloud.xyz:8030/radio.mp3" : "Sangeetmala",
+"http://stream.zeno.fm/c9hwuyc8mg0uv" : "Sargam",
+"http://stream.zeno.fm/kzsmp5qs9k0uv" : "Radio Sarnami",
+"http://solid48.streamupsolutions.com/proxy/radiosbs/radiosbs" : "SBS Radio",
+"http://shruti.kloud.xyz:8000/radio.mp3" : "Shruti",
+"https://server-25.stream-server.nl:8348/stream" : "Sitara FM",
+"http://streaming01.x-6.nl:8000/;" : "Srinagar",
+"http://stream.sunrisefm.nl:9600/stream" : "Sunrise FM",
+"https://my.ssl-stream.com/Suvidha_Radio" : "Suvidha",
+"http://tbn.kloud.xyz:8050/radio.mp3" : "Trishul",
+"https://server4.ujala.nl/stream/2/listen.mp3" : "Ujala",
+
+"http://onlineradio.websoftitnepal.com/8030/stream/1/.mp4a.40.5" : "⚠Vahon",
+};
+
+
+var general= {
+"http://stream.zeno.fm/7qt8yd08qchvv" : "ABC",
+"http://stream.zeno.fm/zh2rs490x68uv" : "Apintie",
+"http://cc3b.beheerstream.com:8192/;stream.mp3" : "Cariba FM",
+"http://stream.zeno.fm/y4ew48z8qchvv" : "Color Radio",
+"https://stream.zeno.fm/u32bq5sfunhvv" : "DTV Radio",
+"http://stream.zeno.fm/084958y3ynhvv" : "GOV Radio",
+"http://stream.zeno.fm/5tv3n9cw008uv" : "Lime",
+"https://larry.torontocast.com:1795/stream" : "Neutral",
+"http://pipel.kloud.xyz:8010/radio.mp3" : "Sky Pipel",
+"http://stanvasteradio.gkstreamen.nl:8120/;" : "Stanvaste",
+"http://surilite1.radioca.st/stream": "Suri Lite",
+"https://caster05.streampakket.com/proxy/9338/stream/1/" : "Tamara",
+"http://radio9.kloud.xyz:8060/radio.mp3" : "Radio 9",
+"https://s5.radio.co/s85a633f73/listen" : "Radio 10",
+"http://stream.zeno.fm/xsdmzxyhc18uv" : "Radio 804",
+"http://icecast.omroep.nl/3fm-bb-mp3" : "Radio FM 103",
+
+//❌"https://168.195.218.193:8000/radio1-3" : "RP Hot One",
+//❌"https://168.195.218.193:8000/radio2-2" : "Beat FM",
+//❌"https://162.244.80.245:8006/;" : "FM Gold",
+//❌"https://solid41.streamupsolutions.com/proxy/yjdqldwt?mp=/stream" : "Da Beat",
+//❌"https://streaming.shoutcast.com/we-radio?" : "WE Radio",
+//❌"https://127.0.0.1:26671/listen.pls" : "Radio One",
+//❌"https://listen.shoutcast.com/k1009" : "Kankantri",
+
+//"https://surilive.com:8020/;stream.nsv" : "⚠️ABC",
+//"http://surilive.com:8010/;" : "⚠️NIO FM",
+//"http://surilive.com:8060/stream.mp3" : "⚠️SRS",
+//"https://video1.getstreamhosting.com:8340/stream" : "⚠️SCCN Smooth",
+//"https://radiostream.limfmsu.com/radio" : "⚠️LIM FM",
+};
+
+
+
+
+var javanese= {
+"http://betelgeuse.dribbcast.com/proxy/abhost?mp=/stream" : "Bangsa Jawa",
+"http://stream.zeno.fm/w6hh0rqqwy8uv" : "DjRegi",
+"http://worldstreaminglive.com/proxy/apzrueeh/stream" : "Garuda",
+"http://94.23.148.11:8214/stream/1/" : "Siaran Jawa",
+"https://s5.radio.co/s1735f3c1d/listen" : "Surja Vibes",
+"http://stream.zeno.fm/u3abxhenhf9uv" : "Tamanredjo Talents",
+
+//❌"https://streaming.radionomy.com/LaguJawa" : "Lagu Jawa",
+};
+
+
+
+var sranang= {
+"https://kathy.torontocast.com:2945/stream" : "Radio Anda",
+"http://stream.zeno.fm/q4wkxqmdqchvv" : "Asosye",
+"http://stream.zeno.fm/rnf3xu9tgs8uv" : "Boeskondee Media",
+"https://stream.zeno.fm/q6cwr2fb1rhvv" : "Boss Media",
+"http://stream.zeno.fm/abb1cne92hhvv" : "DC SuriRadio",
+"http://stream.zeno.fm/db9pak567ehvv" : "DJBadJho",
+"http://stream.zeno.fm/p0d98x5phs8uv" : "DoubleB 2",
+"http://stream.zeno.fm/1sqwfhqwra0uv" : "Fandaaki Paanzu",
+"http://stream.zeno.fm/zduxspz4kv8uv" : "Fan Da Libi",
+"http://patmos.cdnstream.com/proxy/rifawaka/?mp=/stream" : "Fawaka",
+"http://stream.zeno.fm/ysd1dvrtcv8uv" : "Ketebuna",
+"https://mediaserv30.live-streams.nl:18020/stream" : "Konmakandra",
+"http://worldstreaminglive.com/proxy/koyeba/stream" : "Koyeba FM",
+"http://stream.zeno.fm/unz726g6kfhvv" : "Maipa",
+"http://stream.zeno.fm/gg7afgcuhkhvv" : "Makandi",
+"http://clare.shoutca.st/radio/8070/radio.mp3":"MS Radio",
+"http://stream.zeno.fm/y3k2cb2mpchvv" : "Ollies Radio",
+"http://stream.zeno.fm/ym53qqc53hhvv" : "Sam Taki",
+"http://stream.zeno.fm/kyve9mgds18uv" : "Radio Totness",
+
+//❌"https://178.63.94.130:8080/9181316.ogg" : "Positive",
+//❌"http://stream.prography.nl/stream/8062" : "Boskopu",
+//❌"https://91.196.171.99/radiobrasa" : "Brasa",
+//❌"http://canopus.dribbcast.com/stream/8052" : "Anjisa",
+//"https://sonic.magicdragon.nl:7011/stream" : "⚠️Pokoe FM",
+};
+
+
+
+var christian= {
+"http://stream.zeno.fm/kadt188ugy8uv" : "Afonsoewa",
+"http://stream.zeno.fm/6nt6k3e2x68uv" : "Immanu&euml;l",
+"http://cc5.beheerstream.com/proxy/exoticaradio?mp=/stream" : "Radio mArt",
+"http://worldstreaminglive.com/proxy/radioshalom/stream" : "Shalom",
+"http://stream.zeno.fm/31gfhb24kfhvv" : "Tzgospel Swahili",
+
+//❌"https://198.7.59.204/stream.mp3?ipport=198.7.59.204_31366" : "Radio 7 Gospel",
+
+//"http://server.jvhost.net:8010/live" : "⚠️Kabar Katresnan",
+};
+
+
+var misc= {
+"https://stream.zeno.fm/w0hf496vvhhvv" : "Paw Matu Radio",
+"http://olon.az.icecast.ebsd.ericsson.net/salto_razo" : "Razo",
+//"https://olon.quortex.ctl.cdn.ebsd.ericsson.net/olonradio/saltocaribbeanfm/master.m3u8" : "!⚠️Caribbean FM",
+//"http://cross-http.herokuapp.com/https://surilive.com:8050/stream.nsv" : "⚠️LPM Portugese",
+};
+
+
+
+//bye
+
+//----------------------
+function mergeObjects(){
+var res = {};
+for(var i= 0; i<arguments.length; i++){
+for (var x in arguments[i]){
+res[x] = arguments[i][x];
+}
+}
+return res;
+}
+
+var other= mergeObjects(general,sranang,javanese,christian,misc);
+
+//------------------------------------------
+var audio= document.querySelector("audio");
+function updateSrc(src){
+audio.pause();
+audio.src= src;
+audio.load(); audio.play(); 
+}
+
+
+
+//-----create---list------
+function createMenu(obj,optgr,sel){
+var urls= Object.keys(obj);
+var a= document.querySelector(optgr);
+for(var i=0; i<urls.length; i++){
+var b= document.createElement("option");
+b.innerHTML= obj[urls[i]];
+a.appendChild(b);
+}
+}
+
+
+createMenu(sarnamie,"optgroup.sarnamie","select.sarnamie");
+createMenu(general,"optgroup.general","select.other");
+createMenu(sranang,"optgroup.sranang","select.other");
+createMenu(christian,"optgroup.christian","select.other");
+createMenu(javanese,"optgroup.javanese","select.other");
+createMenu(misc,"optgroup.misc","select.other");
+createMenu(bollywood,"optgroup.bollywood","select.bollywood");
+
+
+//add---source----------------
+var currentStation= document.querySelector("span.cs");
+var controls= document.querySelector(".controls");
+
+
+
+
+function addSource(obj,sel){
+var urls= Object.keys(obj);
+var menu= document.querySelector(sel);
+var options= menu.querySelectorAll("option:not([disabled])");
+
+
+menu.addEventListener("change", function(){
+for(var x=0; x<options.length; x++){  
+if(options[x].selected){
+updateSrc(urls[x]);
+//alert(urls[x]);
+currentStation.innerHTML= options[x].innerHTML;// +" : "+ urls[x];
+document.title= "BlackBerry Radio - " + options[x].innerHTML;
+}
+}
+
+});
+}
+
+//ADD EVENT LISTENERS TO ALL STATIONS
+addSource(sarnamie,"select.sarnamie");
+addSource(other,"select.other");
+addSource(bollywood,"select.bollywood");
+
+
+
+//SKIP STATIONS
+var next= document.querySelectorAll(".next");
+var prev= document.querySelectorAll(".prev");
+
+function buttonClick(x,obj,sel,dir){
+x.addEventListener("click", function(){
+var urls= Object.keys(obj);
+var menu= document.querySelector(sel);
+
+if(dir=="next"){
+if(menu.selectedIndex==urls.length){
+menu.selectedIndex= 1;
+}
+else{
+menu.selectedIndex++;
+}
+fireChange(menu);
+}
+else{
+if(menu.selectedIndex<=1){
+menu.selectedIndex= urls.length;
+}
+else{
+menu.selectedIndex--;
+}
+fireChange(menu);
+}
+
+//document.title= "BlackBerry Radio - " + menu[menu.selectedIndex].innerHTML;
+								
+});}
+
+
+buttonClick(next[0],bollywood,"select.bollywood","next");
+buttonClick(next[1],sarnamie,"select.sarnamie","next");
+buttonClick(next[2],other,"select.other","next");
+
+buttonClick(prev[0],bollywood,"select.bollywood","prev");
+buttonClick(prev[1],sarnamie,"select.sarnamie","prev");
+buttonClick(prev[2],other,"select.other","prev");
+
+
+
+//WHEN PLAYING
+audio.addEventListener("play", function(){
+controls.innerHTML= "loading...";
+//(audio.currentTime > 0) ? "stop" : "loading...";
+});
+
+//WHEN PAUSED
+audio.addEventListener("pause", function(){
+controls.innerHTML= "play";
+controls.style.color= "green";
+});
+
+//ON ERROR
+audio.addEventListener("error", function(){
+controls.innerHTML= "error";
+controls.style.color= "red";
+audio.src= "http://kawiesh.tk/resources/kdradiosorry.mp3";
+audio.load(); audio.play();
+});
+
+
+//STOP AND START
+controls.addEventListener("click", function (){
+(audio.paused) ? audio.play() : audio.pause();
+});
+
+
+var timer= document.querySelector(".time");
+
+
+//DISPLAY DURATION
+audio.addEventListener("timeupdate",function(){
+var secs= this.currentTime; 
+controls.innerHTML= (secs > 1) ? "stop" : "loading...";
+
+var time = new Date();
+time.setHours(parseInt(secs/3600) % 24);
+time.setMinutes(parseInt(secs/60) % 60);
+time.setSeconds(parseInt(secs%60));
+time= time.toTimeString().split(" ")[0];
+timer.innerHTML= time + "s";
+});
+
+
+
+function fireChange(element){
+if ("createEvent" in document) {
+var evt = document.createEvent("HTMLEvents");
+evt.initEvent("change", false, true);
+element.dispatchEvent(evt);
+}
+else{
+element.fireEvent("onchange");								
+}
+}
+
+</script>			
+</body>
+</html>
