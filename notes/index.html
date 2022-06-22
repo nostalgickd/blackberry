@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="This site contains some simple tools build for &amp; tested on BB Curve 9320, running BlackBerry OS 7">
+<meta name="keywords" content="Kawiesh, BlackBerry, BlackBerry OS 7">
+<meta name="author" content="Kawiesh Debisarun">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="black">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-navbutton-color" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>BlackBerry Tools</title>
+
+<style>				
+*{
+margin:0;
+padding:0; 
+outline: none;
+border: none;
+position: relative;
+box-sizing: border-box;
+}
+
+html,body{
+width: 100vw;
+overflow-x: hidden;
+}
+
+
+
+body{
+background: rgb(251,244,234);
+}
+
+.links{
+width: 100%;
+margin: 5px 0 0 5px;
+}
+
+.links>a{
+width: 100px;
+text-align: center;
+text-decoration: none;
+padding: 5px;
+margin: 5px;
+border: 1px solid black;
+float: left;
+}
+
+.links>a:visited{
+color: blue;
+}
+
+.info{
+width: 90%;
+margin: 20px 0 0 10px;
+clear: both;
+}
+
+
+a:hover{
+background: yellow;
+}
+
+/******************************************************/
+
+
+
+/******************************************************/
+@media (orientation:portrait){
+.container{width: 95%;}
+}
+
+@media (orientation:landscape){
+.container{width: 50%;}
+}
+</style>
+</head>
+<body>
+<div class="red">
+Not supported on blackberry os7
+<ul>
+<li>let keyword; use var </li>
+<li>arrow functions()=&gt;; use function(){}</li>
+<li>forEach; use for(var i=0; i&lt;arr.length; i++){}</li>
+<li>Object.values (Object.keys is supported)!</li>
+</ul>
+</div>
+
+<script>
+function doc(action,target){
+if(action=="create") return document.createElement(target);
+if(action=="select") return document.querySelector(target);
+if(action=="selectAll") return document.querySelectorAll(target);
+action.appendChild(target);
+}
+
+</script>
+</body>
+</html>
