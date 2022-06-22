@@ -1,113 +1,122 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="black"/>
-<meta name="msapplication-TileColor" content="#da532c"/>
-<meta name="msapplication-navbutton-color" content="black"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="description" content="Some BlackBerry web tools!"/>
-<meta name="keywords" content="Blackberry, Javascript, html, css, kawiesh, bookmarklet, fetch api"/>
-<meta name="author" content="Kawiesh"/>
-<meta property="og:title" content="Remote bookmarklets by Kawiesh"/>
-<meta property="og:type" content="Some BlackBerry web tools!"/>
-<meta property="og:url" content=""/>
-<meta property="og:image" content="https://kawiesh.tk/resources/kawiesh.jpg"/>
-<title>Tools optimized for Blackberry Browser</title>
+<meta name="description" content="This site contains some simple tools build for &amp; tested on BB Curve 9320, running BlackBerry OS 7">
+<meta name="keywords" content="Kawiesh, BlackBerry, BlackBerry OS 7">
+<meta name="author" content="Kawiesh Debisarun">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="black">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-navbutton-color" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>BlackBerry Tools</title>
 
 <style>				
 *{
-box-sizing: border-box;
-margin:0; padding:0; 
+margin:0;
+padding:0; 
 outline: none;
-}	
+border: none;
+position: relative;
+box-sizing: border-box;
+}
+
+html,body{
+width: 100vw;
+overflow-x: hidden;
+}
+
+
 
 body{
-background: rgb(251,244,234) url("");
-background-size: 10%;
-min-width: 100vw; min-height: 100vh;
-position: relative;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content:center;
+background: rgb(251,244,234);
 }
 
-#container{
-border: 0px solid red;
-margin-top: 20px;
-position: relative;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content:center;
+.links{
+width: 100%;
+margin: 5px 0 0 5px;
 }
 
-
-
-a.link{
-display: block;
-padding:5px 5px;
+.links>a{
+width: 100px;
 text-align: center;
 text-decoration: none;
-font-variant: small-caps;
-position: relative;
+padding: 5px;
+margin: 5px;
 border: 1px solid black;
-font-weight: bold;
+float: left;
+}
+
+.links>a:visited{
+color: blue;
+}
+
+.info{
+width: 90%;
+margin: 20px 0 0 10px;
+clear: both;
 }
 
 
-table#links{
-max-width: 100%;
-table-layout: fixed;
-border-spacing: 5px 2px;
+a:hover{
+background: yellow;
 }
 
-
-td{
-overflow: hidden;
-height: calc(1em + 5px);
-background: rgb(255,255,255,0.7);
-}
+/******************************************************/
 
 
 
+/******************************************************/
 @media (orientation:portrait){
-#container{width: 95%;}
-}	
+.container{width: 95%;}
+}
 
 @media (orientation:landscape){
-#container{width: 75%;}
-}	
-
-
-
+.container{width: 50%;}
+}
 </style>
 </head>
-<body data-nosnippet= "true">
-<div id="container">
-<p>Pages optimized 
-for BlackBerry Browser (< OS 7)</p>
-<br>
-<table id="links">
-<tr><td><span>pages:</span></td></tr>
-<tr><td><a class="link" href="apps/">apps</a></td></tr>
-<tr><td><a class="link" href="bookmarklet-maker">bookmarklet maker</a></td></tr>
-<tr><td><a class="link" href="html-editor">html editor</a></td></tr>
-<tr><td><a class="link" href="radio">radio</a></td></tr>
-
-</table>
+<body>
+<div class="links" data-nosnippet></div>
+<div class="info" data-nosnipet>
+Hello, here are some tools I created for my BlackBerry phone! 
+These were only tested on a BlackBerry Curve 9320, running OS 7, but 
+they're expected to run on all other devices and OS versions.
 </div>
-<script>				
-var api= "https://api.github.com/repos/nostalgickd/",
-repo= "nostalgickd.github.io/contents/",
-folder= "blackberry/?v=" + Date.now();
-var url= api + repo + folder;
+<script>
+
+function doc(action,target){
+if(action=="create") return document.createElement(target);
+if(action=="select") return document.querySelector(target);
+if(action=="selectAll") return document.querySelectorAll(target);
+action.appendChild(target);
+}
+
+var links= {
+"Apps" : "/apps/",
+"Notes" : "/notes",
+"Radio" : "/radio",
+"Old Radio" : "/radio-1",
+"JS Tester" : "/bookmarklet-maker",
+"HTML Tester" : "/html-editor"
+};
 
 
-</script>	
+var linkscontainer= doc("select",".links");
+
+for(var title in links){
+if(links.hasOwnProperty(title)){
+var a= doc("create","a");
+a.textContent= title;
+a.href= links[title];
+doc(linkscontainer,a);
+}
+}
+
+
+</script>
 </body>
 </html>
-
