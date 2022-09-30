@@ -58,6 +58,11 @@ img{
 width: 100%;
 }
 
+div.updated{
+color: purple;
+font: 12px Courier;
+}
+
 </style>
 </head>
 <body>
@@ -115,6 +120,7 @@ Use next and prev buttons to navigate through station list!<br>
 Tested on BlackBerry Curve 9320, running OS 7.xx [Native browser]
 <p>
 <br>
+<div class="updated"></div>
 <span>Screenshot:</span><br>
 <img src="/resources/screenshot.png"/>
 
@@ -483,6 +489,52 @@ else{
 element.fireEvent("onchange");								
 }
 }
+
+
+
+//Last updated------
+var url= "https://api.github.com/repos/nostalgickd/blackberry/commits?path=index.html";
+var div= document.querySelector(".updated");
+
+var xhr= new XMLHttpRequest();
+xhr.open('GET',"http://91.209.8.189/files/proxy/miniProxy.php?"+url);
+xhr.responseType= "text";
+xhr.send();
+
+xhr.onload= function() {
+if(xhr.status == 200){
+var response= JSON.parse(xhr.responseText);
+var date= new Date(response[0].commit.author.date);
+
+var _date= date.toLocaleDateString("en-US",{
+//weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric'
+});
+
+var _time= date.toLocaleTimeString("en-US",{
+hour: '2-digit',
+minute: '2-digit'
+});
+
+div.innerHTML= _date + " @ " + _time;
+}
+else alert("Error " + xhr.status + " " + xhr.statusText);
+
+};
+
+
+
+xhr.onprogress = function(event){
+div.innerHTML= "Loading ..";
+};
+
+
+xhr.onerror= function() {
+div.innerHTML= "Failed!!!";
+};
+
 
 </script>			
 </body>
