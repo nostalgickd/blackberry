@@ -59,8 +59,8 @@ width: 100%;
 }
 
 div.updated{
-color: purple;
-font: 12px Courier;
+color: black;
+font: bold 10px Courier;
 }
 
 </style>
@@ -494,7 +494,7 @@ element.fireEvent("onchange");
 
 //Last updated------
 var url= "https://api.github.com/repos/nostalgickd/blackberry/commits?path=index.html";
-var div= document.querySelector(".updated");
+var updated= document.querySelector(".updated");
 
 var xhr= new XMLHttpRequest();
 xhr.open('GET',"http://91.209.8.189/files/proxy/miniProxy.php?"+url);
@@ -518,7 +518,7 @@ hour: '2-digit',
 minute: '2-digit'
 });
 
-div.innerHTML= _date + " @ " + _time;
+updated.innerHTML= "Updated on: " + _date + " @ " + _time;
 }
 else alert("Error " + xhr.status + " " + xhr.statusText);
 
@@ -527,12 +527,12 @@ else alert("Error " + xhr.status + " " + xhr.statusText);
 
 
 xhr.onprogress = function(event){
-div.innerHTML= "Loading ..";
+updated.innerHTML= "Loading ..";
 };
 
 
 xhr.onerror= function() {
-div.innerHTML= "Failed!!!";
+updated.innerHTML= "Failed!!!";
 };
 
 
