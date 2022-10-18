@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<title>BlackBerry Tools</title>
+<title>BlackBerry Notes</title>
 
 <style>				
 *{
@@ -35,38 +35,37 @@ body{
 background: rgb(251,244,234);
 }
 
-.links{
-width: 100%;
-margin: 5px 0 0 5px;
-}
-
-.links>a{
-width: 100px;
-text-align: center;
-text-decoration: none;
-padding: 5px;
-margin: 5px;
-border: 1px solid black;
-float: left;
-}
-
-.links>a:visited{
-color: blue;
-}
-
-.info{
-width: 90%;
-margin: 20px 0 0 10px;
-clear: both;
-}
-
-
-a:hover{
-background: yellow;
-}
 
 /******************************************************/
 
+table{
+border:1.5px solid black;		
+border-collapse: collapse;
+table-layout: fixed;
+caption-side: top;
+
+
+}
+ 
+td{
+font:bold 10px
+"Courier New";
+padding: 5px;
+border:1px solid black;
+height: calc(1em + 5px);
+text-align: left;
+vertical-align: top;
+overflow: auto;
+white-space: pre;
+}
+
+td:nth-child(1){
+color: red;
+}
+
+td:nth-child(2){
+color: green;
+}
 
 
 /******************************************************/
@@ -80,23 +79,99 @@ background: yellow;
 </style>
 </head>
 <body>
-<div class="red">
-Not supported on blackberry os7
-<ul>
-<li>let keyword; use var </li>
-<li>arrow functions()=&gt;; use function(){}</li>
-<li>forEach; use for(var i=0; i&lt;arr.length; i++){}</li>
-<li>Object.values (Object.keys is supported)!</li>
-</ul>
-</div>
+
+<table>
+<caption>BlackBerry 9320 Browser JS</caption>
+<tr>
+<td>let a= value</td>
+<td>var a= value</td>
+</tr>
+<tr>
+<td>fetch(url)
+.then(r=&gt;r.text())
+.then(d=&gt;{
+.......
+.......
+})
+.catch(x=&gt; alert(x));
+</td>
+<td>var xhr= new XMLHttpRequest();
+xhr.open('GET',"url);
+xhr.responseType= "text";
+xhr.send();
+
+xhr.onload= function() {
+if(xhr.status == 200){
+var response= JSON.parse(xhr.responseText);
+.......
+.......
+}
+};
+
+xhr.onprogress = function(event){
+.......
+.......
+};
+
+xhr.onerror= function() {
+.......
+.......
+};
+</td>
+</tr>
+<tr>
+<td>a.onclick=()=&gt;{
+.......
+.......
+};</td>
+<td>a.onclick= function(){
+.......
+.......
+};</td>
+</tr>
+<tr>
+<td>let b= a.includes("word";
+</td>
+<td>var b= /word/.test(a);
+</td>
+</tr>
+<tr>
+<td>array.forEach(i=&gt;{
+.......
+.......
+});</td>
+<td>for(var i=0; i&lt;array.length; i++){
+.......
+.......
+}</td>
+</tr>
+<tr>
+<td>let val= Object.values(obj);</td>
+<td>var keyz= Object.keys(obj);
+var val= [];
+for(var i=0; i&lt;keyz.length; i++){
+val.push(obj[keyz[i]);
+}
+ </td>
+</tr>
+</table>
 
 <script>
-function doc(action,target){
-if(action=="create") return document.createElement(target);
-if(action=="select") return document.querySelector(target);
-if(action=="selectAll") return document.querySelectorAll(target);
-action.appendChild(target);
+function create(element){
+return document.createElement(element);
 }
+
+function select(selector){
+return document.querySelector(selector);
+}
+
+function selectAll(selector){
+return document.querySelectorAll(selector);
+}
+
+
+
+//End of standard BB JS Code------------------
 
 </script>
 </body>
