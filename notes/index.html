@@ -43,8 +43,7 @@ border:1.5px solid black;
 border-collapse: collapse;
 table-layout: fixed;
 caption-side: top;
-
-
+width: 100%;
 }
  
 td{
@@ -55,7 +54,7 @@ border:1px solid black;
 height: calc(1em + 5px);
 text-align: left;
 vertical-align: top;
-overflow: auto;
+overflowX: auto;
 white-space: pre;
 }
 
@@ -130,7 +129,7 @@ xhr.onerror= function() {
 };</td>
 </tr>
 <tr>
-<td>let b= a.includes("word";
+<td>let b= a.includes("word");
 </td>
 <td>var b= /word/.test(a);
 </td>
