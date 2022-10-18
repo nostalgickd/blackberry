@@ -42,10 +42,12 @@ border:1.5px solid black;
 border-collapse: collapse;
 table-layout: fixed;
 caption-side: top;
-width: 100%;
+width: 99%;
+margin: 0 0.5%;
 }
  
 td{
+font: 12px "Courier New";
 padding: 5px;
 border:1px solid black;
 text-align: left;
@@ -54,15 +56,19 @@ overflow: auto;
 white-space: pre;
 }
 
-td:nth-child(1){
-color: red;
+tr:nth-child(odd){
+background: pink;
 }
 
-td:nth-child(2){
-color: green;
+tr:nth-child(even){
+background: PaleGreen;
 }
 
 
+textarea{
+width: 80%;
+height: 50px;
+}
 /******************************************************/
 @media (orientation:portrait){
 .container{width: 95%;}
@@ -72,25 +78,30 @@ color: green;
 .container{width: 50%;}
 }
 </style>
+<style></style>
 </head>
-<body>
-
+<body><!--
+<textarea></textarea>-->
 <table>
 <caption>BlackBerry 9320 Browser JS</caption>
-<tr>
-<td>let a= value</td>
-<td>var a= value</td>
-</tr>
-<tr>
-<td>fetch(url)
+
+<tr><td>let a= value</td></tr>
+
+
+<tr><td>var a= value</td></tr>
+
+
+<tr><td>fetch(url)
 .then(r=&gt;r.text())
 .then(d=&gt;{
 .......
 .......
 })
 .catch(x=&gt; alert(x));
-</td>
-<td>var xhr= new XMLHttpRequest();
+</td></tr>
+
+
+<tr><td>var xhr= new XMLHttpRequest();
 xhr.open('GET',"url);
 xhr.responseType= "text";
 xhr.send();
@@ -112,43 +123,49 @@ xhr.onerror= function() {
 .......
 .......
 };
-</td>
-</tr>
-<tr>
-<td>a.onclick=()=&gt;{
+</td></tr>
+
+<tr><td>a.onclick=()=&gt;{
 .......
 .......
-};</td>
-<td>a.onclick= function(){
+};</td></tr>
+
+
+<tr><td>a.onclick= function(){
 .......
 .......
-};</td>
-</tr>
-<tr>
-<td>let b= a.includes("word");
-</td>
-<td>var b= /word/.test(a);
-</td>
-</tr>
-<tr>
-<td>array.forEach(i=&gt;{
+};</td></tr>
+
+
+<tr><td>let b= a.includes("word");
+</td></tr>
+
+
+<tr><td>var b= /word/.test(a);
+</td></tr>
+
+
+<tr><td>array.forEach(i=&gt;{
 .......
 .......
-});</td>
-<td>for(var i=0; i&lt;array.length; i++){
+});</td></tr>
+
+
+<tr><td>for(var i=0; i&lt;array.length; i++){
 .......
 .......
-}</td>
-</tr>
-<tr>
-<td>let val= Object.values(obj);</td>
-<td>var keyz= Object.keys(obj);
+}</td></tr>
+
+
+<tr><td>let val= Object.values(obj);</td></tr>
+
+
+<tr><td>var keyz= Object.keys(obj);
 var val= [];
 for(var i=0; i&lt;keyz.length; i++){
 val.push(obj[keyz[i]);
-}
- </td>
-</tr>
+}</td></tr>
+
 </table>
 
 <script>
@@ -167,6 +184,12 @@ return document.querySelectorAll(selector);
 
 
 //End of standard BB JS Code------------------
+
+/*
+select("textarea").oninput= function(){
+selectAll("style")[1].innerHTML= this.value;
+};
+*/
 
 </script>
 </body>
